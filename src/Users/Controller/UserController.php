@@ -3,6 +3,7 @@
 namespace Utilisateurs\Controller;
 
 use Silex\Application;
+use Utilisateurs\Entity\User;
 
 class UserController
 {
@@ -13,8 +14,15 @@ class UserController
         ));
     }
 
-    public function store(){
+    public function store(Application $app){
+        $user = new User();
+        $user->setUsername('mayaka');
+        $user->setPassword('salade69');
+        $user->setRoles('ROLE_USER');
 
+        $app['repository.user']->save($user);
+
+        return $app->json($user);
     }
 
 }

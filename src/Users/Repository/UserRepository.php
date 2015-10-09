@@ -78,7 +78,7 @@ class UserRepository implements RepositoryInterface
      */
     public function find($id)
     {
-        $userData = $this->db->fetchAssoc('SELECT * FROM user WHERE id = ?', array($id));
+        $userData = $this->db->fetchAssoc('SELECT * FROM users WHERE id = ?', array($id));
         return $userData ? $this->buildUser($userData) : FALSE;
     }
     /**
