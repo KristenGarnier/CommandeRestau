@@ -1,0 +1,9 @@
+database:
+    driver : pdo_mysql
+    host: 127.0.0.1
+    dbname: restaurant
+    user: root
+    password: ''
+
+debug:
+    dev: true
