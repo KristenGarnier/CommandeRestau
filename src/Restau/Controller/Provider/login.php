@@ -11,7 +11,7 @@ class login implements ControllerProviderInterface
     public function connect(Application $app){
         $login = $app["controllers_factory"];
 
-        $login->get('/', "Restau\\Controller\\LoginController::index");
+        $login->get('/', "Restau\\Controller\\LoginController::index")->bind("commande");
 
         return $login;
     }
