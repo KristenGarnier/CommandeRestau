@@ -6,6 +6,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Utilisateurs\Entity\User;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class UserController
 {
@@ -36,6 +37,32 @@ class UserController
         $app['repository.user']->delete($user);
 
         return new RedirectResponse('/');
+    }
+
+    public function update(Request $request, Application $app){
+        $user = $app['repository.user']->findByName($app['security.token_storage']->getToken()->getUser());
+
+        if ($request->getMethod() == 'POST'){
+            $newUsername = $request->request->get('username');
+            $newPassword = $request->request->get('password');
+            $newPasswordEncoded = $app['security.encoder.digest']->encodePassword($newPassword, '');
+
+            if($newPasswordEncoded != $user->getPassword() && $newPassword != null && $newPassword != ''){
+                $user->setPassword($newPassword);
+            }
+            if($newUsername != $user->getUsername()){
+                $user->setUsername($newUsername);
+            }
+
+            $app['repository.user']->save($user);
+
+            return $app->redirect($app["url_generator"]->generate("start"));
+        }
+
+        return $app['twig']->render('register.html.twig', array(
+            'user' => $user,
+        ));
+
     }
 
 }

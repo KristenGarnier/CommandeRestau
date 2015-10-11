@@ -12,7 +12,7 @@ $app->get('/', function(Request $request) use ($app) {
         'error' => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
-});
+})->bind('start');
 
 $app->mount('/commandes', new Restau\Controller\Provider\Login());
 $app->mount('/users', new Utilisateurs\Controller\Provider\Utilisateur());

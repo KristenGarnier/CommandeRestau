@@ -15,6 +15,8 @@ class Utilisateur implements ControllerProviderInterface
         $user = $app["controllers_factory"];
 
         $user->get('/delete', "Utilisateurs\\Controller\\UserController::destroy");
+        $user->get('/update', "Utilisateurs\\Controller\\UserController::update");
+        $user->post('/update', "Utilisateurs\\Controller\\UserController::update");
         $user->get('/', "Utilisateurs\\Controller\\UserController::register");
         $user->post('/', "Utilisateurs\\Controller\\UserController::store");
 
