@@ -2,7 +2,7 @@
 
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
-        'register' => array('pattern' => '^/users'), // Exemple d'une url accessible en mode non connecté
+        'register' => array('pattern' => '^/users$'), // Exemple d'une url accessible en mode non connecté
         'default' => array(
             'pattern' => '^.*$',
             'anonymous' => true, // Indispensable car la zone de login se trouve dans la zone sécurisée (tout le front-office)
@@ -17,6 +17,6 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.access_rules' => array(
         // ROLE_USER est défini arbitrairement, vous pouvez le remplacer par le nom que vous voulez
         array('^/commande', 'ROLE_USER'),
-        array('^/foo$', ''), // Cette url est accessible en mode non connecté
+        array('^/users/delete', 'ROLE_USER'), // Cette url est accessible en mode non connecté
     )
 ));

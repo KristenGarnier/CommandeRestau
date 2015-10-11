@@ -2,7 +2,6 @@
 
 namespace Utilisateurs\Repository;
 
-use Utilisateurs\Repository\RepositoryInterface;
 use Doctrine\DBAL\Connection;
 use Utilisateurs\Entity\User;
 
@@ -81,6 +80,20 @@ class UserRepository implements RepositoryInterface
         $userData = $this->db->fetchAssoc('SELECT * FROM users WHERE id = ?', array($id));
         return $userData ? $this->buildUser($userData) : FALSE;
     }
+
+    /**
+     * Returns an user matching the supplied username.
+     *
+     * @param string $username
+     *
+     * @return User|false An entity object if found, false otherwise.
+     */
+    public function findByName($username)
+    {
+        $userData = $this->db->fetchAssoc('SELECT * FROM users WHERE username = ?', array($username));
+        return $userData ? $this->buildUser($userData) : FALSE;
+    }
+
     /**
      * Returns a collection of users, sorted by name.
      *
