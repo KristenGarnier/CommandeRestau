@@ -2,19 +2,19 @@
 
 {% block content %}
     <div class="container">
-        <div class="alert alter-danger" role="alert">
-            Attention, une fois votre compte mis à jour, vous devrez vous reconnecter.
-        </div>
         <form method="post">
             <div class="form-group">
                 <label for="exampleInputEmail1">Nom d'utilisateur</label>
-                <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="Nom d'utilisateur" {% if user.username %} value="{{ user.username }}" {% endif %}>
+                <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="Nom d'utilisateur">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Mot de passe</label>
                 <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Mot de passe">
             </div>
-            <button type="submit" class="btn btn-default">Mettre à jour</button>
+            <button type="submit" class="btn btn-default">S'inscrire</button>
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
         </form>
     </div>
 {% endblock %}

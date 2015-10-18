@@ -17,7 +17,12 @@ class Utilisateur implements ControllerProviderInterface
         $user->get('/delete', "Utilisateurs\\Controller\\UserController::destroy");
         $user->get('/update', "Utilisateurs\\Controller\\UserController::update");
         $user->post('/update', "Utilisateurs\\Controller\\UserController::update");
-        $user->get('/', "Utilisateurs\\Controller\\UserController::register");
+        $user->get('/', "Utilisateurs\\Controller\\UserController::register")
+        ->before(function(Request $request, Application $app){
+            if( $app['security.token_storage']->getToken()->getUser() != 'anon.'){
+                return $app->redirect($app["url_generator"]->generate("start"));
+            }
+        })->bind('inscription');
         $user->post('/', "Utilisateurs\\Controller\\UserController::store");
 
         return $user;

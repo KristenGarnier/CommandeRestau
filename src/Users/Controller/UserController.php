@@ -12,22 +12,29 @@ class UserController
 {
 
     public function register(Application $app){
-        return $app['twig']->render('register.html.twig', array(
-            'name' => 'utilisateur',
-        ));
+        return $app['twig']->render('create.html.twig', array('error'=> ''));
     }
 
     public function store(Application $app, Request $request){
         $username = $request->request->get('username');
         $password = $request->request->get('password');
+
         $user = new User();
         $user->setUsername($username);
         $user->setPassword($password);
         $user->setRoles('ROLE_USER');
 
-        $userFinal = $app['repository.user']->save($user);
+        try {
+            $app['repository.user']->save($user);
 
-        return $app->json($userFinal);
+        } catch(\Exception $e){
+            return $app['twig']->render('create.html.twig', array('error' => 'Le nom d\'utilisateur est déjà pris.'));
+        }
+
+
+        $app['session']->getFlashBag()->add('success_register','Veuillez maintenant vous connecter ' . $user->getUsername() );
+
+        return $app->redirect($app["url_generator"]->generate("start"));
     }
 
     public function destroy(Application $app){
