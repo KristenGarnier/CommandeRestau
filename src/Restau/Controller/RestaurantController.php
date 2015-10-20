@@ -4,7 +4,7 @@ namespace Restau\Controller;
 
 use Silex\Application;
 
-class LoginController
+class RestaurantController
 {
 
     public function index(Application $app)
