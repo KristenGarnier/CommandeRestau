@@ -37,13 +37,15 @@ class UserController
         return $app->redirect($app["url_generator"]->generate("start"));
     }
 
-    public function destroy(Application $app){
+    public function delete(Application $app){
 
         $user = $app['repository.user']->findByName($app['security.token_storage']->getToken()->getUser());
 
         $app['repository.user']->delete($user);
 
-        return new RedirectResponse('/');
+        $app['session']->getFlashBag()->add('success_register','L\'utilisateur a bien été supprimé');
+
+        return $app->redirect($app["url_generator"]->generate("start"));
     }
 
     public function update(Request $request, Application $app){
@@ -55,7 +57,7 @@ class UserController
             $newPasswordEncoded = $app['security.encoder.digest']->encodePassword($newPassword, '');
 
             if($newPasswordEncoded != $user->getPassword() && $newPassword != null && $newPassword != ''){
-                $user->setPassword($newPassword);
+                $user->setPassword($newPasswordEncoded);
             }
             if($newUsername != $user->getUsername()){
                 $user->setUsername($newUsername);
