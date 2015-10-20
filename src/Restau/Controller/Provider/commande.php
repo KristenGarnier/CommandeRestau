@@ -5,7 +5,7 @@ namespace Restau\Controller\Provider;
 use \Silex\Application;
 use \Silex\ControllerProviderInterface;
 
-class login implements ControllerProviderInterface
+class commande implements ControllerProviderInterface
 {
 
     public function connect(Application $app){

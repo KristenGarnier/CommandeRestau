@@ -14,5 +14,5 @@ $app->get('/', function(Request $request) use ($app) {
     ));
 })->bind('start');
 
-$app->mount('/commandes', new Restau\Controller\Provider\Login());
+$app->mount('/commandes', new Restau\Controller\Provider\commande());
 $app->mount('/users', new Utilisateurs\Controller\Provider\Utilisateur());
