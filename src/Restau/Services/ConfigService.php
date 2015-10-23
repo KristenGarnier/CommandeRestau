@@ -46,25 +46,5 @@ class ConfigService
         return $debug['debug'];
     }
 
-    /**
-     * Return the auth config
-     *
-     * @return mixed
-     */
-    public function getAuthConfig()
-    {
-        $auth = $this->_yaml->parse(file_get_contents("../app/config/config.yml"));
-        return $auth['admin'];
-    }
 
-    /**
-     * Return the token config
-     *
-     * @return mixed
-     */
-    public function getTokenConfig()
-    {
-        $token = $this->_yaml->parse(file_get_contents("../app/config/config.yml"));
-        return $token['secret'];
-    }
 }

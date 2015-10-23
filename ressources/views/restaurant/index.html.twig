@@ -1,0 +1,33 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        {% for restaurant in restaurants %}
+            <div class="jumbotron">
+                <h1>{{ restaurant.nom }}</h1>
+
+                <p>
+                    {{ restaurant.adresse }} <br>
+                    {{ restaurant.cp }} - {{ restaurant.ville }}
+                </p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Ouverture</th>
+                        <th>Fermeture</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> {{ restaurant.ouverture | date('H:i') }}</td>
+                            <td> {{ restaurant.fermeture | date('H:i') }}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <p><a class="btn btn-primary btn-lg" href="{{ path('restaurant_show', {'id' : restaurant.id}) }}" role="button">Learn more</a></p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

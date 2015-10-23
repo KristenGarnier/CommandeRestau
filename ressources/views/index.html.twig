@@ -4,7 +4,9 @@
     <div class="container">
 
         {% for message in app.session.getFlashBag.get('success_register') %}
-            <br>{{ message }}<br>
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
         {% endfor %}
 
         <form action="{{ path('connexion') }}" method="post">
