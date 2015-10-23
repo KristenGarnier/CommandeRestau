@@ -18,6 +18,9 @@ class restaurant implements ControllerProviderInterface
         $login->get('/like/{id}', "Restau\\Controller\\RestaurantController::like")
             ->bind("restaurant_like")
             ->assert('id', '\d+');
+        $login->get('/dislike/{id}', "Restau\\Controller\\RestaurantController::dislike")
+            ->bind("restaurant_dislike")
+            ->assert('id', '\d+');
         return $login;
     }
 

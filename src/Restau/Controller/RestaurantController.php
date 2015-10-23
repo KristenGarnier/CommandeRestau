@@ -29,7 +29,7 @@ class RestaurantController
     public function show(Application $app, $id){
 
         $restaurant = $app['repository.restaurant']->find($id);
-        return $app['twig']->render('restaurant/show.html.twig', array('restaurant' => $restaurant));
+        return $app['twig']->render('restaurant/show.html.twig', array('restaurant' => $restaurant, 'userLike' => $app['likechecker']->doUserLike($app['repository.user']->findByName($app['security.token_storage']->getToken()->getUser()->getUsername()), $restaurant)));
 
     }
 
@@ -56,6 +56,10 @@ class RestaurantController
 
         $app['repository.restaurant']->save($restaurant);
         return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
+    }
+
+    public function dislike(){
+
     }
 
 }

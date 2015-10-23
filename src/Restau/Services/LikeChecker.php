@@ -36,7 +36,7 @@ class LikeChecker
         }
     }
 
-    public function userLike(User $user, Restaurant $restaurant){
+    public function doUserLike(User $user, Restaurant $restaurant){
         $likes = $this->app['repository.likes']->findByUser($user->getId());
         foreach($likes as $like){
             if($like->getRestaurant() == $restaurant->getId()){
