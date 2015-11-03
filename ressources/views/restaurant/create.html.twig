@@ -6,27 +6,27 @@
         <form method="post">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email Nom</label>
-                <input type="text" class="form-control" name="nom" id="exampleInputEmail1" placeholder="Nom" required>
+                <input type="text" class="form-control" name="nom" id="exampleInputEmail1" placeholder="Nom" {% if restaurant is defined %} value="{{ restaurant.nom }}" {% endif %} required>
             </div>
             <div class="form-group">
                 <label for="adresse">Adresse</label>
-                <input type="text" class="form-control" name="adresse" id="adresse" placeholder="Adresse" required>
+                <input type="text" class="form-control" name="adresse" id="adresse" placeholder="Adresse" {% if restaurant is defined %} value="{{ restaurant.adresse }}" {% endif %} required>
             </div>
             <div class="form-group">
                 <label for="code_postal">Code Postal</label>
-                <input type="number" class="form-control" name="cp" id="code_postal" placeholder="CP" required>
+                <input type="number" class="form-control" name="cp" id="code_postal" placeholder="CP" {% if restaurant is defined %} value="{{ restaurant.cp }}" {% endif %} required>
             </div>
             <div class="form-group">
                 <label for="Ville">Ville</label>
-                <input type="text" class="form-control" name="ville" id="ville" placeholder="Ville" required>
+                <input type="text" class="form-control" name="ville" id="ville" placeholder="Ville" {% if restaurant is defined %} value="{{ restaurant.ville }}" {% endif %} required>
             </div>
             <div class="form-group">
                 <label for="ouverture">Heure d'ouverture</label>
-                <input type="time" class="form-control" id="ouverture" name="ouverture" required>
+                <input type="time" class="form-control" id="ouverture" name="ouverture" {% if restaurant is defined %} value="{{ restaurant.ouverture }}" {% endif %} required>
             </div>
             <div class="form-group">
                 <label for="fermeture">Fermeture</label>
-                <input type="time" class="form-control" id="fermeture" name="fermeture" required>
+                <input type="time" class="form-control" id="fermeture" name="fermeture" {% if restaurant is defined %} value="{{ restaurant.fermeture }}" {% endif %} required>
             </div>
             <button type="submit" class="btn btn-default">Envoyer</button>
         </form>

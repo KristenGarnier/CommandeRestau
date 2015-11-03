@@ -97,4 +97,23 @@ class RestaurantController
 
     }
 
+    public function update(Application $app, Request $request, $id){
+
+        $restaurant = $app['repository.restaurant']->find($id);
+
+        if ($request->getMethod() == 'POST') {
+            $restaurant->setNom($request->get('nom'));
+            $restaurant->setAdresse($request->get('adresse'));
+            $restaurant->setCp($request->get('cp'));
+            $restaurant->setVille($request->get('ville'));
+            $restaurant->setFermeture($request->get('fermeture'));
+            $restaurant->setOuverture($request->get('ouverture'));
+
+            $app['repository.restaurant']->save($restaurant);
+
+            return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
+        }
+        return $app['twig']->render('restaurant/create.html.twig', array('restaurant' => $restaurant));
+    }
+
 }

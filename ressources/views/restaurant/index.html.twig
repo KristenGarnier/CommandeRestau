@@ -2,6 +2,9 @@
 
 {% block content %}
     <div class="container">
+        <a href="{{ path('restaurant_create') }}" class="btn btn-primary">
+            Ajouter un restaurant
+        </a>
         {% for restaurant in restaurants %}
             <div class="jumbotron">
                 <h1>{{ restaurant.nom }}</h1>

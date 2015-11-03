@@ -42,6 +42,10 @@
                                                    aria-hidden="true"></span> {{ restaurant.likes }}</a>
                 {% endif %}
 
+                <a class="btn btn-default btn-lg pull-right" href="{{ path('restaurant_update', {'id' : restaurant.id}) }}" role="button">
+                    Mettre à jour
+                </a>
+
             </p>
         </div>
     </div>
