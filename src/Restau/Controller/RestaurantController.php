@@ -116,4 +116,15 @@ class RestaurantController
         return $app['twig']->render('restaurant/create.html.twig', array('restaurant' => $restaurant));
     }
 
+    public function delete(Application $app, $id){
+        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
+            return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
+        }
+
+        $restaurant = $app['repository.restaurant']->find($id);
+        $app['repository.restaurant']->delete($restaurant);
+
+        return $app->redirect($app['url_generator']->generate('restaurant_index'));
+    }
+
 }

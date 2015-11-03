@@ -16,7 +16,11 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     ),
     'security.access_rules' => array(
         // ROLE_USER est défini arbitrairement, vous pouvez le remplacer par le nom que vous voulez
+        array('^/users', 'IS_AUTHENTICATED_ANONYMOUSLY'),
         array('^/commande', 'ROLE_USER'),
         array('^/users/delete', 'ROLE_USER'), // Cette url est accessible en mode non connecté
+    ),
+    'security.role_hierarchy' => array(
+        'ROLE_ADMIN' => array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH')
     )
 ));

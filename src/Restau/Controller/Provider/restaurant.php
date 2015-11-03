@@ -26,9 +26,15 @@ class restaurant implements ControllerProviderInterface
         $restau->post('/create', "Restau\\Controller\\RestaurantController::create")
             ->bind("restaurant_create_form");
         $restau->get('/update/{id}', "Restau\\Controller\\RestaurantController::update")
-            ->bind("restaurant_update");
+            ->bind("restaurant_update")
+            ->assert('id', '\d+');
         $restau->post('/update/{id}', "Restau\\Controller\\RestaurantController::update")
-            ->bind("restaurant_update_form");
+            ->bind("restaurant_update_form")
+            ->assert('id', '\d+');
+        $restau->get('/delete/{id}', "Restau\\Controller\\RestaurantController::delete")
+            ->bind("restaurant_delete")
+            ->assert('id', '\d+');
+
         return $restau;
     }
 

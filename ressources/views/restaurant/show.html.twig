@@ -35,16 +35,25 @@
                 {% if userLike %}
                     <a class="btn btn-danger btn-lg " href="{{ path('restaurant_dislike', {'id' : restaurant.id}) }}"
                        role="button">Je dislike <span class="glyphicon glyphicon-remove"
-                                                   aria-hidden="true"></span></a>
+                                                      aria-hidden="true"></span></a>
                 {% else %}
                     <a class="btn btn-success btn-lg " href="{{ path('restaurant_like', {'id' : restaurant.id}) }}"
                        role="button">Je like <span class="glyphicon glyphicon-heart"
                                                    aria-hidden="true"></span> {{ restaurant.likes }}</a>
                 {% endif %}
 
-                <a class="btn btn-default btn-lg pull-right" href="{{ path('restaurant_update', {'id' : restaurant.id}) }}" role="button">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-danger btn-lg pull-right"
+                       href="{{ path('restaurant_delete', {'id' : restaurant.id}) }}" role="button">
+                        Suprimmer
+                    </a>
+                {% endif %}
+
+                <a class="btn btn-default btn-lg pull-right"
+                   href="{{ path('restaurant_update', {'id' : restaurant.id}) }}" role="button">
                     Mettre à jour
                 </a>
+
 
             </p>
         </div>

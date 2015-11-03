@@ -59,7 +59,7 @@ class RestaurantRepository implements RepositoryInterface
      */
     public function delete($restaurant)
     {
-        return $this->db->delete('restaurant', array('id' => $restaurant->getId()));
+        return $this->db->delete('restaurants', array('id' => $restaurant->getId()));
     }
     /**
      * Returns the total number of restaurants.
