@@ -58,8 +58,24 @@ class RestaurantController
         return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
     }
 
-    public function dislike(){
+    public function dislike(Application $app, $id){
+        $restaurant = $app['repository.restaurant']->find($id);
+        $user = $app['repository.user']->findByName($app['security.token_storage']->getToken()->getUser()->getUsername());
 
+        $likes = $app['repository.likes']->findByUser($user->getId());
+
+        $like = array_map(function($like) use ($restaurant){
+            if( $restaurant->getId() == $like->getRestaurant()){
+                return $like;
+            }
+        }, $likes);
+
+        $app['repository.likes']->delete(array_values($like)[0]);
+
+        $likes = $app['repository.likes']->findByRestaurant($id);
+        $restaurant->setLikes(count($likes) -1 );
+
+        return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
     }
 
 }

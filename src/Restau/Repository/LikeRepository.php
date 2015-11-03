@@ -54,7 +54,7 @@ class LikeRepository implements RepositoryInterface
      */
     public function delete($like)
     {
-        return $this->db->delete('like', array('id' => $like->getId()));
+        return $this->db->delete('likes', array('id' => $like->getId()));
     }
     /**
      * Returns the total number of likes.

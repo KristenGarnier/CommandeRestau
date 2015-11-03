@@ -6,7 +6,8 @@
     "symfony/yaml": "^2.7",
     "symfony/security": "^2.7",
     "twig/twig" : "~1.0",
-    "symfony/twig-bridge": "^2.7"
+    "symfony/twig-bridge": "^2.7",
+    "raveren/kint": "^1.0"
   },
   "require-dev": {
     "symfony/var-dumper": "dev-master"
