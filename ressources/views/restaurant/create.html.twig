@@ -1,0 +1,34 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <h3>Enregister un nouveau restaurant</h3>
+        <form method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email Nom</label>
+                <input type="text" class="form-control" name="nom" id="exampleInputEmail1" placeholder="Nom" required>
+            </div>
+            <div class="form-group">
+                <label for="adresse">Adresse</label>
+                <input type="text" class="form-control" name="adresse" id="adresse" placeholder="Adresse" required>
+            </div>
+            <div class="form-group">
+                <label for="code_postal">Code Postal</label>
+                <input type="number" class="form-control" name="cp" id="code_postal" placeholder="CP" required>
+            </div>
+            <div class="form-group">
+                <label for="Ville">Ville</label>
+                <input type="text" class="form-control" name="ville" id="ville" placeholder="Ville" required>
+            </div>
+            <div class="form-group">
+                <label for="ouverture">Heure d'ouverture</label>
+                <input type="time" class="form-control" id="ouverture" name="ouverture" required>
+            </div>
+            <div class="form-group">
+                <label for="fermeture">Fermeture</label>
+                <input type="time" class="form-control" id="fermeture" name="fermeture" required>
+            </div>
+            <button type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+    </div>
+{% endblock %}

@@ -36,7 +36,7 @@ class Restaurant
 
     public function getAdresse()
     {
-        return $this->nom;
+        return $this->adresse;
     }
 
     public function setAdresse($adresse)
