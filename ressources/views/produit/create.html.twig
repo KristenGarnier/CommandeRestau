@@ -1,0 +1,57 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <h3>Enregister un nouveau produit</h3>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nom du produit</label>
+                <input type="text" class="form-control" name="nom" id="exampleInputEmail1"
+                       placeholder="Nom" {% if produit is defined %} value="{{ produit.nom }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+                <label for="prix">Prix du produit</label>
+                <input type="number" class="form-control" name="prix" id="prix"
+                       placeholder="Prix" {% if produit is defined %} value="{{ produit.prix }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+                <label for="type">Type de produit</label>
+                <select name="type" id="type" class="form-control" required>
+                    <option value="primary"
+                            {% if produit is defined %}
+                                {% if produit.type == "primary" %}
+                                    selected
+                                {% endif %}
+                            {% endif %}
+                            >Produit principal (salade, burger, sandwich ... )
+                    </option>
+                    <option value="boisson"
+                            {% if produit is defined %}
+                                {% if produit.type == "boisson" %}
+                                    selected
+                                {% endif %}
+                            {% endif %}
+                            >Boisson
+                    </option>
+                    <option value="dessert"
+                            {% if produit is defined %}
+                                {% if produit.type == "dessert" %}
+                                    selected
+                                {% endif %}
+                            {% endif %}
+                            >Dessert
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+                <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
+                <label for="file">Ajoutez une image au produit</label>
+                <input name="imageproduit" id="file" type="file" class="form-control" required/>
+            </div>
+            <button type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+    </div>
+{% endblock %}

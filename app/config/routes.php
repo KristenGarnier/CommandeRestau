@@ -15,4 +15,6 @@ $app->get('/', function(Request $request) use ($app) {
 })->bind('start');
 
 $app->mount('/restaurants', new Restau\Controller\Provider\restaurant());
+$app->mount('/produits', new Restau\Controller\Provider\produit());
+$app->mount('/menus', new Restau\Controller\Provider\menu());
 $app->mount('/users', new Utilisateurs\Controller\Provider\Utilisateur());
