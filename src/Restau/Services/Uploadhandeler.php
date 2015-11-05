@@ -3,6 +3,7 @@
 namespace Restau\Services;
 
 use Silex\Application;
+use nwtn\Respimg;
 
 
 /**
@@ -32,11 +33,13 @@ class Uploadhandeler
         $tabFileName  = explode('.', $filename);
         if(!$this->fileExist($path.$filename)){
             $file->move($path,$filename);
+            $this->optimize($path.$filename);
             return $filename;
         };
 
         $filename = $this->renameFile($tabFileName, 1, $path);
         $file->move($path,$filename);
+        $this->optimize($path.$filename);
 
 
         return $filename;
@@ -55,6 +58,20 @@ class Uploadhandeler
 
         $i++;
         return $this->renameFile($tabFileName, $i, $path);
+    }
+
+    private function optimize($imagePath)
+    {
+
+        chmod($imagePath, 0777);
+        $image = new Respimg($imagePath);
+        $width = getimagesize($imagePath);
+        if ($width > 300) {
+            $width = 300;
+        }
+        $image->smartResize($width, 0, true);
+        $image->writeImage($imagePath);
+        Respimg::optimize($imagePath, 0, 1, 1, 1);
     }
 
 }
