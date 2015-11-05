@@ -24,6 +24,8 @@ class RestaurantController
 
         $restaurant = $app['repository.restaurant']->find($id);
         return $app['twig']->render('restaurant/show.html.twig', array('restaurant' => $restaurant, 'userLike' => $app['likechecker']->doUserLike($app['repository.user']->findByName($app['security.token_storage']->getToken()->getUser()->getUsername()), $restaurant)));
+$restaurant = $app['repository.restaurant']->find($id);
+        $app['repository.restaurant']->delete($restaurant);
 
     }
 
@@ -121,8 +123,6 @@ class RestaurantController
             return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
         }
 
-        $restaurant = $app['repository.restaurant']->find($id);
-        $app['repository.restaurant']->delete($restaurant);
 
         return $app->redirect($app['url_generator']->generate('restaurant_index'));
     }
