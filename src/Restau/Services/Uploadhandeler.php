@@ -29,9 +29,32 @@ class Uploadhandeler
         $path = __DIR__.'/../../../public/uploads/';
 
         $filename = $file->getClientOriginalName();
+        $tabFileName  = explode('.', $filename);
+        if(!$this->fileExist($path.$filename)){
+            $file->move($path,$filename);
+            return $filename;
+        };
+
+        $filename = $this->renameFile($tabFileName, 1, $path);
         $file->move($path,$filename);
 
+
         return $filename;
+
+    }
+
+    private function fileExist($path){
+        return file_exists($path);
+    }
+
+    private function renameFile($tabFileName, $i, $path){
+        $tempName = $tabFileName[0].'_'.$i.'.'.$tabFileName[1];
+        if(!$this->fileExist($path.$tempName)){
+            return $tempName;
+        }
+
+        $i++;
+        return $this->renameFile($tabFileName, $i, $path);
     }
 
 }

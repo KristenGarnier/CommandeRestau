@@ -10,7 +10,7 @@
                     {{ produit.prix |number_format(0, '.') }} €<br>
                     {{ produit.type }}
                 </p>
-                <img src="{{ produit.image }}" alt="photo de {{ produit.nom }}" width="20%">
+                <img src="{{ produit.getWebPath }}" alt="photo de {{ produit.nom }}" width="20%">
             </div>
         {% endfor %}
     </div>

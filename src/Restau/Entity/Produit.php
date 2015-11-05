@@ -62,4 +62,8 @@ class Produit
         $this->type = $type;
     }
 
+    public function getWebPath(){
+        return '/uploads/'.$this->getImage();
+    }
+
 }
