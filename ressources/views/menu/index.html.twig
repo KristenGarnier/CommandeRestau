@@ -14,6 +14,13 @@
                 <p>{{ menu.produit.nom }}</p>
                 <p>{{ menu.boisson.nom }}</p>
                 <p>{{ menu.dessert.nom }}</p>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-default btn-lg pull-right"
+                       href="{{ path('menu_update', {'id' : menu.id}) }}" role="button">
+                        Mettre à jour
+                    </a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
