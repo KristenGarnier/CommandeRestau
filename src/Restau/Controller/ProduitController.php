@@ -26,6 +26,7 @@ class ProduitController
             $produit->setNom($request->get('nom'));
             $produit->setPrix($request->get('prix'));
             $produit->setType($request->get('type'));
+            $produit->setRestaurant($request->get('restaurant'));
 
             $file = $request->files->get('imageproduit');
 
@@ -35,17 +36,21 @@ class ProduitController
 
             return $app->redirect($app['url_generator']->generate('produit_index'));
         }
-        return $app['twig']->render('produit/create.html.twig');
+
+        $restaurants = $app['repository.restaurant']->findAll();
+        return $app['twig']->render('produit/create.html.twig',array('restaurants' => $restaurants));
     }
 
     public function update(Application $app, Request $request, $id)
     {
         $produit = $app['repository.produits']->find($id);
+        $restaurants = $app['repository.restaurant']->findAll();
 
         if($request->getMethod() == 'POST'){
             $produit->setNom($request->get('nom'));
             $produit->setPrix($request->get('prix'));
             $produit->setType($request->get('type'));
+            $produit->setRestaurant($request->get('restaurant'));
 
             if($request->files->get('imageproduit')){
                 $file = $request->files->get('imageproduit');
@@ -57,7 +62,7 @@ class ProduitController
             return $app->redirect($app['url_generator']->generate('produit_index'));
         }
 
-        return $app['twig']->render('produit/create.html.twig', array('produit' => $produit));
+        return $app['twig']->render('produit/create.html.twig', array('produit' => $produit, 'restaurants' => $restaurants));
     }
 
     public function delete(Application $app, $id){

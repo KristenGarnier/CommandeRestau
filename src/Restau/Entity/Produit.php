@@ -10,6 +10,7 @@ class Produit
     private $image;
     private $prix;
     private $type;
+    private $restaurant;
 
 
     public function getId()
@@ -60,6 +61,16 @@ class Produit
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    public function getRestaurant()
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant($restaurant)
+    {
+        $this->restaurant = $restaurant;
     }
 
     public function getWebPath(){

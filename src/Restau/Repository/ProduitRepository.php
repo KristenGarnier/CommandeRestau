@@ -4,6 +4,7 @@ namespace Restau\Repository;
 
 use Doctrine\DBAL\Connection;
 use Restau\Entity\Produit;
+use Silex\Application;
 use Utilisateurs\Entity\User;
 use Utilisateurs\Repository\RepositoryInterface;
 
@@ -14,10 +15,12 @@ class ProduitRepository implements RepositoryInterface
      * @var \Doctrine\DBAL\Connection
      */
     protected $db;
+    protected $app;
 
-    public function __construct(Connection $db)
+    public function __construct(Connection $db, Application $app)
     {
         $this->db = $db;
+        $this->app = $app;
     }
 
     /**
@@ -33,7 +36,8 @@ class ProduitRepository implements RepositoryInterface
             'nom' => $produit->getNom(),
             'prix' => $produit->getPrix(),
             'type' => $produit->getType(),
-            'image' => $produit->getImage()
+            'image' => $produit->getImage(),
+            'restaurant' => $produit->getRestaurant()
         );
         if ($produit->getId()) {
             $this->db->update('produits', $produitData, array('id' => $produit->getId()));
@@ -153,6 +157,8 @@ class ProduitRepository implements RepositoryInterface
         $produit->setPrix($produitData['prix']);
         $produit->setType($produitData['type']);
         $produit->setImage($produitData['image']);
+        $restau = $this->app['repository.restaurant']->find($produitData['restaurant']);
+        $produit->setRestaurant($restau);
 
         return $produit;
     }

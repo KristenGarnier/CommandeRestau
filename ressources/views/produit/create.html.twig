@@ -21,6 +21,14 @@
                        placeholder="Prix" {% if produit is defined %} value="{{ produit.prix }}" {% endif %} required>
             </div>
             <div class="form-group">
+                <label for="restau">Restaurant</label>
+                <select name="restaurant" id="restau" class="form-control" required>
+                    {% for restaurant in restaurants %}
+                        <option value="{{ restaurant.id }}" {% if produit is defined %}{% if restaurant.id == produit.restaurant.id %} selected{% endif %}{% endif %}> {{ restaurant.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="type">Type de produit</label>
                 <select name="type" id="type" class="form-control" required>
                     <option value="primary"

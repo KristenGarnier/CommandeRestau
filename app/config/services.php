@@ -32,7 +32,7 @@ $app['repository.likes'] = $app->share(function ($app) {
 });
 
 $app['repository.produits'] = $app->share(function ($app) {
-    return new ProduitRepository($app['db']);
+    return new ProduitRepository($app['db'], $app);
 });
 
 $app['repository.menus'] = $app->share(function ($app) {

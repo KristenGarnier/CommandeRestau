@@ -8,9 +8,10 @@
 
                 <p>
                     {{ produit.prix |number_format(0, '.') }} €<br>
-                    {{ produit.type }}
+                    {{ produit.type }} <br>
+                    {{ produit.restaurant.nom }}
                 </p>
-                <img src="{{ produit.getWebPath }}" alt="photo de {{ produit.nom }}" width="20%">
+                <img src="{{ produit.getWebPath }}" alt="photo de {{ produit.nom }}" >
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-default btn-lg pull-right"
                        href="{{ path('produit_update', {'id' : produit.id}) }}" role="button">

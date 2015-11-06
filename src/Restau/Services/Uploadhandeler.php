@@ -66,10 +66,11 @@ class Uploadhandeler
         chmod($imagePath, 0777);
         $image = new Respimg($imagePath);
         $width = getimagesize($imagePath);
-        if ($width > 300) {
-            $width = 300;
+        if ($width > 54) {
+            $width = 54;
         }
         $image->smartResize($width, 0, true);
+        $image->cropImage($width, $width, 0,0);
         $image->writeImage($imagePath);
         Respimg::optimize($imagePath, 0, 1, 1, 1);
     }
