@@ -19,7 +19,7 @@ class ProduitRepository implements RepositoryInterface
     {
         $this->db = $db;
     }
-    
+
     /**
      * Saves the produit to the database.
      *
@@ -37,8 +37,7 @@ class ProduitRepository implements RepositoryInterface
         );
         if ($produit->getId()) {
             $this->db->update('produits', $produitData, array('id' => $produit->getId()));
-        }
-        else {
+        } else {
 
             $this->db->insert('produits', $produitData);
             $last = $this->db->lastInsertId();
@@ -58,14 +57,17 @@ class ProduitRepository implements RepositoryInterface
     {
         return $this->db->delete('produits', array('id' => $produit->getId()));
     }
+
     /**
      * Returns the total number of produits.
      *
      * @return integer The total number of produits.
      */
-    public function getCount() {
+    public function getCount()
+    {
         return $this->db->fetchColumn('SELECT COUNT(id) FROM produits');
     }
+
     /**
      * Returns an produit matching the supplied id.
      *
@@ -79,6 +81,17 @@ class ProduitRepository implements RepositoryInterface
         return $produitData ? $this->buildProduit($produitData) : FALSE;
     }
 
+    public function findByType($type)
+    {
+        $produitsData = $this->db->fetchAll('SELECT * FROM produits WHERE type = ?', array($type));
+        $produits = array();
+        foreach ($produitsData as $produitData) {
+            $produitId = $produitData['id'];
+            $produits[$produitId] = $this->buildProduit($produitData);
+        }
+        return $produits;
+    }
+
 
     /**
      * Returns a collection of produits, sorted by name.
@@ -87,7 +100,7 @@ class ProduitRepository implements RepositoryInterface
      *   The number of produit to return.
      * @param integer $offset
      *   The number of produit to skip.
-     * @param array $orderBy
+     * @param array   $orderBy
      *   Optionally, the order by info, in the $column => $direction format.
      *
      * @return array A collection of produit, keyed by like id.
@@ -100,14 +113,14 @@ class ProduitRepository implements RepositoryInterface
         }
         $queryBuilder = $this->db->createQueryBuilder();
 
-        if($limit) {
+        if ($limit) {
             $queryBuilder
                 ->select('r.*')
                 ->from('produits', 'r')
                 ->setMaxResults($limit)
                 ->setFirstResult($offset)
                 ->orderBy('r.' . key($orderBy), current($orderBy));
-        }else {
+        } else {
             $queryBuilder
                 ->select('r.*')
                 ->from('produits', 'r')
@@ -116,13 +129,14 @@ class ProduitRepository implements RepositoryInterface
         }
         $statement = $queryBuilder->execute();
         $produitsData = $statement->fetchAll();
-        $likes = array();
+        $produits = array();
         foreach ($produitsData as $produitData) {
-            $likeId = $produitData['id'];
-            $likes[$likeId] = $this->buildProduit($produitData);
+            $produitId = $produitData['id'];
+            $produits[$produitId] = $this->buildProduit($produitData);
         }
-        return $likes;
+        return $produits;
     }
+
     /**
      * Instantiates an produit entity and sets its properties using db data.
      *

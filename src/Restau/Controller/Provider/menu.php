@@ -13,6 +13,9 @@ class menu implements ControllerProviderInterface
 
         $menu->get('/', "Restau\\Controller\\MenuController::index")->bind("menu_index");
 
+        $menu->get('/create', "Restau\\Controller\\MenuController::create")->bind("menu_create");
+        $menu->post('/create', "Restau\\Controller\\MenuController::create")->bind("menu_create_post");
+
         return $menu;
     }
 
