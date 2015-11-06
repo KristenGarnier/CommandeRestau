@@ -66,4 +66,8 @@ class ProduitController
         return $app['twig']->render('produit/create.html.twig', array('produit' => $produit));
     }
 
+    public function delete(Application $app){
+
+    }
+
 }

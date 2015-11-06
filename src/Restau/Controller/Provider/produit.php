@@ -16,8 +16,16 @@ class produit implements ControllerProviderInterface
         $produit->get('/create', "Restau\\Controller\\ProduitController::create")->bind("produit_create");
         $produit->post('/create', "Restau\\Controller\\ProduitController::create")->bind("produit_create_post");
 
-        $produit->get('/update/{id}', "Restau\\Controller\\ProduitController::update")->bind("produit_update");
-        $produit->post('/update/{id}', "Restau\\Controller\\ProduitController::update")->bind("produit_update_post");
+        $produit->get('/update/{id}', "Restau\\Controller\\ProduitController::update")
+            ->bind("produit_update")
+            ->assert('id', '\d+');
+        $produit->post('/update/{id}', "Restau\\Controller\\ProduitController::update")
+            ->bind("produit_update_post")
+            ->assert('id', '\d+');
+
+        $produit->get('/delete/{id}', "Restau\\Controller\\ProduitController::delete")
+            ->bind("produit_delete")
+            ->assert('id', '\d+');
 
         return $produit;
     }

@@ -4,13 +4,23 @@
     <div class="container">
         {% for produit in produits %}
             <div class="jumbotron">
-                <h1>{{ produit.nom }}</h1>
+                <h1>{{ produit.nom | capitalize}}</h1>
 
                 <p>
                     {{ produit.prix |number_format(0, '.') }} €<br>
                     {{ produit.type }}
                 </p>
                 <img src="{{ produit.getWebPath }}" alt="photo de {{ produit.nom }}" width="20%">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-default btn-lg pull-right"
+                       href="{{ path('produit_update', {'id' : produit.id}) }}" role="button">
+                        Mettre à jour
+                    </a>
+                    <a class="btn btn-danger btn-lg pull-right"
+                       href="{{ path('produit_delete', {'id' : produit.id}) }}" role="button">
+                        Suprimmer
+                    </a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

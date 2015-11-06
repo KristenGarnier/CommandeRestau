@@ -123,6 +123,14 @@ $restaurant = $app['repository.restaurant']->find($id);
             return $app->redirect($app['url_generator']->generate('restaurant_show', array('id' => $id)));
         }
 
+        $restaurant = $app['repository.restaurant']->find($id);
+        $likes = $app['repository.likes']->findByRestaurant($restaurant->getId());
+
+        $app['repository.restaurant']->delete($restaurant);
+
+        foreach($likes as $like){
+            $app['repository.likes']->delete($like);
+        }
 
         return $app->redirect($app['url_generator']->generate('restaurant_index'));
     }
