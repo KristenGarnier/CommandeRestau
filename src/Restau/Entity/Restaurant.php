@@ -7,6 +7,7 @@ class Restaurant
 
     private $id;
     private $nom;
+    private $canonicalNom;
     private $adresse;
     private $cp;
     private $ville;
@@ -32,6 +33,11 @@ class Restaurant
     public function setNom($nom)
     {
         $this->nom = $nom;
+        $this->canonicalNom = strtolower(str_replace(' ', '_', $nom));
+    }
+
+    public function getCanonical(){
+        return $this->canonicalNom;
     }
 
     public function getAdresse()
