@@ -8,6 +8,7 @@ use Restau\Repository\LikeRepository;
 use Restau\Services\LikeChecker;
 use Restau\Repository\ProduitRepository;
 use Restau\Services\Uploadhandeler;
+use Restau\Repository\MenuRepository;
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../../ressources/views',
@@ -32,6 +33,10 @@ $app['repository.likes'] = $app->share(function ($app) {
 
 $app['repository.produits'] = $app->share(function ($app) {
     return new ProduitRepository($app['db']);
+});
+
+$app['repository.menus'] = $app->share(function ($app) {
+    return new MenuRepository($app['db']);
 });
 
 $app['yaml'] = $app->share(function(){

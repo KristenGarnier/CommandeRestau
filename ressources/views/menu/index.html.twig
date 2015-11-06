@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        {% for menu in menus %}
+            <div class="jumbotron">
+                <h1>{{ menu.nom }}</h1>
+
+                <p>
+                    {{ menu.prix }} €<br>
+                    {{ menu.restaurant.nom }}
+                </p>
+                <h2>Ingrédients :</h2>
+                <p>{{ menu.produit.nom }}</p>
+                <p>{{ menu.boisson.nom }}</p>
+                <p>{{ menu.dessert.nom }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -13,7 +13,6 @@ class Menu
     private $boisson_id;
     private $dessert_id;
 
-
     public function getId()
     {
         return $this->id;
@@ -34,7 +33,7 @@ class Menu
         $this->nom = $nom;
     }
 
-    public function getRestautant()
+    public function getRestaurant()
     {
         return $this->restaurant_id;
     }
