@@ -15,12 +15,6 @@ class ProduitController
         $produits = $app['repository.produits']->findAll();
 
         return $app['twig']->render('produit/index.html.twig', array('produits' => $produits));
-
-        /* $files = $request->files->get($form->getName());
-            /* Make sure that Upload Directory is properly configured and writable
-        $path = __DIR__.'/../web/upload/';
-        $filename = $files['FileUpload']->getClientOriginalName();
-        $files['FileUpload']->move($path,$filename);*/
     }
 
     public function create(Application $app, Request $request)
@@ -66,8 +60,16 @@ class ProduitController
         return $app['twig']->render('produit/create.html.twig', array('produit' => $produit));
     }
 
-    public function delete(Application $app){
+    public function delete(Application $app, $id){
+        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
+            return $app->redirect($app['url_generator']->generate('produit_index'));
+        }
 
+        $restaurant = $app['repository.produits']->find($id);
+
+        $app['repository.produits']->delete($restaurant);
+
+        return $app->redirect($app['url_generator']->generate('produit_index'));
     }
 
 }
