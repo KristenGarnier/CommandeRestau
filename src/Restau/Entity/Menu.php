@@ -10,8 +10,6 @@ class Menu
     private $prix;
     private $restaurant_id;
     private $produit_id;
-    private $boisson_id;
-    private $dessert_id;
 
     public function getId()
     {
@@ -55,22 +53,22 @@ class Menu
 
     public function getBoisson()
     {
-        return $this->boisson_id;
+        return $this->boisson;
     }
 
     public function setBoisson($boisson)
     {
-        $this->boisson_id = $boisson;
+        $this->boisson = $boisson;
     }
 
     public function getDessert()
     {
-        return $this->dessert_id;
+        return $this->dessert;
     }
 
     public function setDessert($dessert)
     {
-        $this->dessert_id = $dessert;
+        $this->dessert = $dessert;
     }
 
     public function getPrix()

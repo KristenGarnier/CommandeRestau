@@ -37,7 +37,7 @@ class MenuRepository implements RepositoryInterface
             'prix' => $menu->getPrix(),
             'restaurant_id' => $menu->getRestaurant(),
             'primary_id' => $menu->getProduit(),
-            'boisson_id' => $menu->getBoisson(),
+            'boisson' => $menu->getBoisson(),
             'dessert' => $menu->getDessert()
         );
         if ($menu->getId()) {
@@ -146,10 +146,8 @@ class MenuRepository implements RepositoryInterface
         $menu->setRestaurant( $restau);
         $primary = $this->app['repository.produits']->find($menuData['primary_id']);
         $menu->setProduit($primary);
-        $boisson = $this->app['repository.produits']->find($menuData['boisson_id']);
-        $menu->setBoisson($boisson);
-        $dessert = $this->app['repository.produits']->find($menuData['dessert']);
-        $menu->setDessert($dessert);
+        $menu->setBoisson($menuData['boisson']);
+        $menu->setDessert($menuData['dessert']);
 
         return $menu;
     }
