@@ -4,6 +4,7 @@ namespace Restau\Repository;
 
 use Doctrine\DBAL\Connection;
 use Restau\Entity\Menu;
+use Silex\Application;
 use Utilisateurs\Entity\User;
 use Utilisateurs\Repository\RepositoryInterface;
 
@@ -14,10 +15,12 @@ class MenuRepository implements RepositoryInterface
      * @var \Doctrine\DBAL\Connection
      */
     protected $db;
+    protected $app;
 
-    public function __construct(Connection $db)
+    public function __construct(Connection $db,Application $app)
     {
         $this->db = $db;
+        $this->app = $app;
     }
     
     /**
@@ -139,14 +142,14 @@ class MenuRepository implements RepositoryInterface
         $menu->setId($menuData['id']);
         $menu->setNom($menuData['nom']);
         $menu->setPrix($menuData['prix']);
-        $restau = $this->db->executeQuery('SELECT * FROM restaurants WHERE id = ?', array($menuData['restaurant_id']));
-        $menu->setRestaurant( $restau->fetch());
-        $primary = $this->db->executeQuery('SELECT * FROM produits WHERE id = ?', array($menuData['primary_id']));
-        $menu->setProduit($primary->fetch());
-        $boisson = $this->db->executeQuery('SELECT * FROM produits WHERE id = ?', array($menuData['boisson_id']));
-        $menu->setBoisson($boisson->fetch());
-        $dessert = $this->db->executeQuery('SELECT * FROM produits WHERE id = ?', array($menuData['dessert']));
-        $menu->setDessert($dessert->fetch());
+        $restau = $this->app['repository.restaurant']->find($menuData['restaurant_id']);
+        $menu->setRestaurant( $restau);
+        $primary = $this->app['repository.produits']->find($menuData['primary_id']);
+        $menu->setProduit($primary);
+        $boisson = $this->app['repository.produits']->find($menuData['boisson_id']);
+        $menu->setBoisson($boisson);
+        $dessert = $this->app['repository.produits']->find($menuData['dessert']);
+        $menu->setDessert($dessert);
 
         return $menu;
     }

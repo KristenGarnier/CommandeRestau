@@ -12,8 +12,11 @@
                 </p>
                 <h2>Ingrédients :</h2>
                 <p>{{ menu.produit.nom }}</p>
+                <img src="{{ menu.produit.getWebPath }}" alt="">
                 <p>{{ menu.boisson.nom }}</p>
+                <img src="{{ menu.boisson.getWebPath }}" alt="">
                 <p>{{ menu.dessert.nom }}</p>
+                <img src="{{ menu.dessert.getWebPath }}" alt="">
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-default btn-lg pull-right"

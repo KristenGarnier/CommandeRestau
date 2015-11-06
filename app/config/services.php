@@ -36,7 +36,7 @@ $app['repository.produits'] = $app->share(function ($app) {
 });
 
 $app['repository.menus'] = $app->share(function ($app) {
-    return new MenuRepository($app['db']);
+    return new MenuRepository($app['db'], $app);
 });
 
 $app['yaml'] = $app->share(function(){
