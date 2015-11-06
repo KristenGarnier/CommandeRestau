@@ -20,6 +20,10 @@
                        href="{{ path('menu_update', {'id' : menu.id}) }}" role="button">
                         Mettre à jour
                     </a>
+                    <a class="btn btn-danger btn-lg pull-right"
+                       href="{{ path('menu_delete', {'id' : menu.id}) }}" role="button">
+                        Suprimmer
+                    </a>
                 {% endif %}
             </div>
         {% endfor %}

@@ -23,6 +23,10 @@ class menu implements ControllerProviderInterface
             ->bind("menu_update_post")
             ->assert('id', '\d+');
 
+        $menu->get('/delete/{id}', "Restau\\Controller\\MenuController::delete")
+            ->bind("menu_delete")
+            ->assert('id', '\d+');
+
         return $menu;
     }
 

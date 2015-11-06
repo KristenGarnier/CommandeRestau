@@ -65,4 +65,16 @@ class MenuController
         return $app['twig']->render('menu/create.html.twig', array('menu' => $menu, 'restaurants' => $restaurants, 'primarys' => $produits, 'boissons' => $boissons, 'desserts' => $desserts));
     }
 
+    public function delete(Application $app, $id){
+        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
+            return $app->redirect($app['url_generator']->generate('menu_index'));
+        }
+
+        $menu = $app['repository.menus']->find($id);
+
+        $app['repository.menus']->delete($menu);
+
+        return $app->redirect($app['url_generator']->generate('menu_index'));
+    }
+
 }
