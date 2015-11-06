@@ -40,4 +40,29 @@ class MenuController
         return $app['twig']->render('menu/create.html.twig', array('restaurants' => $restaurants, 'primarys' => $produits, 'boissons' => $boissons, 'desserts' => $desserts));
     }
 
+    public function update(Application $app, Request $request, $id){
+
+        $menu = $app['repository.menus']->find($id);
+
+        if ($request->getMethod() == 'POST') {
+            $menu->setNom($request->get('nom'));
+            $menu->setPrix($request->get('prix'));
+            $menu->setRestaurant($request->get('restau'));
+            $menu->setProduit($request->get('primary'));
+            $menu->setBoisson($request->get('boisson'));
+            $menu->setDessert($request->get('dessert'));
+
+            $app['repository.menus']->save($menu);
+
+            return $app->redirect($app['url_generator']->generate('menu_index'));
+        }
+
+        $restaurants = $app['repository.restaurant']->findAll();
+        $produits = $app['repository.produits']->findByType('primary');
+        $boissons = $app['repository.produits']->findByType('boisson');
+        $desserts = $app['repository.produits']->findByType('dessert');
+
+        return $app['twig']->render('menu/create.html.twig', array('menu' => $menu, 'restaurants' => $restaurants, 'primarys' => $produits, 'boissons' => $boissons, 'desserts' => $desserts));
+    }
+
 }

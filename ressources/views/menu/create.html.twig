@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         {% if menu is defined %}
-            <h3>Modifier le produit {{ menu.nom }}</h3>
+            <h3>Modifier le menu {{ menu.nom }}</h3>
         {% else %}
             <h3>Enregister un nouveau Menu</h3>
         {% endif %}
@@ -23,7 +23,7 @@
                 <label for="restau">Restaurant</label>
                 <select name="restau" id="restau" class="form-control" required>
                     {% for restaurant in restaurants %}
-                        <option value="{{ restaurant.id }}"> {{ restaurant.nom }}</option>
+                        <option value="{{ restaurant.id }}" {% if menu is defined %}{% if restaurant.id == menu.restaurant.id %} selected{% endif %}{% endif %}> {{ restaurant.nom }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -31,7 +31,7 @@
                 <label for="primary">Produit principal</label>
                 <select name="primary" id="primary" class="form-control" required>
                     {% for primary in primarys %}
-                        <option value="{{ primary.id }}"> {{ primary.nom }}</option>
+                        <option value="{{ primary.id }}" {% if menu is defined %}{% if primary.id == menu.produit.id %} selected{% endif %}{% endif %}> {{ primary.nom }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -39,7 +39,7 @@
                 <label for="boisson">Boisson</label>
                 <select name="boisson" id="boisson" class="form-control" required>
                     {% for boisson in boissons %}
-                        <option value="{{ boisson.id }}"> {{ boisson.nom }}</option>
+                        <option value="{{ boisson.id }}" {% if menu is defined %}{% if boisson.id == menu.boisson.id %} selected{% endif %}{% endif %}> {{ boisson.nom }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -47,7 +47,7 @@
                 <label for="dessert">Produit principal</label>
                 <select name="dessert" id="dessert" class="form-control" required>
                     {% for dessert in desserts %}
-                        <option value="{{ dessert.id }}"> {{ dessert.nom }}</option>
+                        <option value="{{ dessert.id }}" {% if menu is defined %} {% if dessert.id == menu.dessert.id %} selected{% endif %} {% endif %}> {{ dessert.nom }}</option>
                     {% endfor %}
                 </select>
             </div>

@@ -16,6 +16,13 @@ class menu implements ControllerProviderInterface
         $menu->get('/create', "Restau\\Controller\\MenuController::create")->bind("menu_create");
         $menu->post('/create', "Restau\\Controller\\MenuController::create")->bind("menu_create_post");
 
+        $menu->get('/update/{id}', "Restau\\Controller\\MenuController::update")
+            ->bind("menu_update")
+            ->assert('id', '\d+');
+        $menu->post('/update/{id}', "Restau\\Controller\\MenuController::update")
+            ->bind("menu_update_post")
+            ->assert('id', '\d+');
+
         return $menu;
     }
 
