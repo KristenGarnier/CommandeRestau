@@ -2,5 +2,14 @@
 
 {% block content %}
     hello {{ app.security.token.user.username }} !
-    <a href="{{ path('restaurant_index') }}"><button>Consulter les restaurants</button></a>
+    <br>
+    <a class="btn btn-primary" href="{{ path('commande_index') }}">
+        Passer une commande
+    </a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('restaurant_index') }}">
+        <button>Consulter les restaurants</button>
+    </a>
+    {% endif %}
 {% endblock %}
