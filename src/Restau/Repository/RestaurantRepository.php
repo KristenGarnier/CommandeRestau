@@ -138,6 +138,33 @@ class RestaurantRepository implements RepositoryInterface
         }
         return $restaurants;
     }
+
+    public function findAllArray($limit = false, $offset = 0, $orderBy = array())
+    {
+        // Provide a default orderBy.
+        if (!$orderBy) {
+            $orderBy = array('nom' => 'ASC');
+        }
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        if ($limit) {
+            $queryBuilder
+                ->select('r.*')
+                ->from('restaurants', 'r')
+                ->setMaxResults($limit)
+                ->setFirstResult($offset)
+                ->orderBy('r.' . key($orderBy), current($orderBy));
+        } else {
+            $queryBuilder
+                ->select('r.nom, r.id')
+                ->from('restaurants', 'r')
+                ->setFirstResult($offset)
+                ->orderBy('r.' . key($orderBy), current($orderBy));
+        }
+        $statement = $queryBuilder->execute();
+        return $statement->fetchAll();
+    }
+
     /**
      * Instantiates an user entity and sets its properties using db data.
      *
@@ -159,6 +186,13 @@ class RestaurantRepository implements RepositoryInterface
         $restaurant->setLikes($restaurantData['likes']);
 
         return $restaurant;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'nom' => $this->nom,
+        ];
     }
 
 }

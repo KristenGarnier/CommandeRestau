@@ -96,6 +96,11 @@ class ProduitRepository implements RepositoryInterface
         return $produits;
     }
 
+    public function findByTypeRestaurantArray($type, $restauId)
+    {
+        return $this->db->fetchAll('SELECT id, nom, image FROM produits WHERE type = ? AND restaurant = ?', array($type, $restauId));
+    }
+
 
     /**
      * Returns a collection of produits, sorted by name.
@@ -139,6 +144,21 @@ class ProduitRepository implements RepositoryInterface
             $produits[$produitId] = $this->buildProduit($produitData);
         }
         return $produits;
+    }
+
+    public function findAllRestaurantArray($restaurant)
+    {
+        // Provide a default orderBy.
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        $queryBuilder
+            ->select('r.id, r.nom, r.image')
+            ->from('produits', 'r')
+            ->where('r.restaurant = :restaurant')
+            ->setParameter('restaurant', $restaurant);
+
+        $statement = $queryBuilder->execute();
+        return $statement->fetchAll();
     }
 
     /**
